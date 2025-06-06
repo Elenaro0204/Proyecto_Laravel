@@ -50,5 +50,5 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('destinos/{destino}', [DestinoController::class, 'destroy'])->name('destinos.destroy');
 
     // También tienes rutas admin como esta:
-    Route::get('/admin', [AdminController::class, 'index']);
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 });
