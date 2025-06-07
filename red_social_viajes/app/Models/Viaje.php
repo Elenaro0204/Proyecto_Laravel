@@ -9,7 +9,20 @@ class Viaje extends Model
 {
     use HasFactory;
 
-protected $fillable = ['user_id', 'destino_id', 'titulo', 'descripcion', 'foto'];
+    protected $fillable = [
+        'user_id',
+        'titulo',
+        'descripcion',
+        'destino_id',
+        'foto',
+        'fecha_inicio',
+        'fecha_fin',
+    ];
+
+    protected $casts = [
+        'fecha_inicio' => 'datetime',
+        'fecha_fin' => 'datetime',
+    ];
 
     // Relaciones, por ejemplo:
     public function user()

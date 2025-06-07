@@ -23,12 +23,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',  // Añade este campo
+        'is_admin',  // Añade este campo
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean', // añade esto
     ];
 
     public function isAdmin(): bool
     {
-        return $this->role === 'admin';
+        return $this->is_admin === true;
     }
 
     /**
@@ -40,19 +45,6 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
 
     public function viajes(): HasMany
     {

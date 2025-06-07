@@ -12,6 +12,16 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    public function index()
+    {
+        $user = Auth::user();  // Obtener usuario autenticado
+
+        // Opcionalmente, obtener los viajes de ese usuario
+        $viajes = $user->viajes; // Asumiendo que tienes la relación definida
+        // dd($user, $viajes);
+        return view('profile.index', compact('user', 'viajes'));
+    }
+
     /**
      * Display the user's profile form.
      */
@@ -35,7 +45,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.index')->with('status', 'profile-updated');
     }
 
     /**
@@ -57,20 +67,5 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
-    }
-
-    public function showProfile(): View
-    {
-        $user = Auth::user();
-
-        if (!$user) {
-            // Por si no hay usuario autenticado
-            abort(403, 'No autorizado');
-        }
-
-        // Traemos todos sus viajes
-        $viajes = $user->viajes()->latest()->get();
-
-        return view('profile.show', compact('user', 'viajes'));
     }
 }

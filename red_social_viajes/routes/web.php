@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ViajeController;
@@ -30,25 +31,42 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/viajes/create', [ViajeController::class, 'create'])->name('viajes.create');
     Route::post('/viajes', [ViajeController::class, 'store'])->name('viajes.store');
 
-    // CRUD de destinos (puedes limitar esto a admin si lo prefieres)
+    // CRUD de destinos
     Route::get('destinos', [DestinoController::class, 'index'])->name('destinos.index');
     Route::get('destinos/{destino}', [DestinoController::class, 'show'])->name('destinos.show');
 
-    // Perfil (opcional, lo incluye Breeze)
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Perfil (lo incluye Breeze)
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 // Rutas exclusivas para admin para modificar destinos
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', AdminMiddleware::class])->group(function () {
+
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+
+    // Viajes
+    Route::get('admin/viajes', [ViajeController::class, 'indexAdmin'])->name('admin.viajes.index');
+    Route::get('admin/viajes/create', [ViajeController::class, 'createAdmin'])->name('admin.viajes.create');
+    Route::post('admin/viajes', [ViajeController::class, 'storeAdmin'])->name('admin.viajes.store');
+    Route::get('admin/viajes/{viaje}/edit', [ViajeController::class, 'editAdmin'])->name('admin.viajes.edit');
+    Route::put('admin/viajes/{viaje}', [ViajeController::class, 'updateAdmin'])->name('admin.viajes.update');
+    Route::delete('admin/viajes/{viaje}', [ViajeController::class, 'destroyAdmin'])->name('admin.viajes.destroy');
+
+    // Usuarios
+    Route::get('admin/users', [AdminController::class, 'indexUser'])->name('admin.users.index');
+    Route::get('admin/users/create', [AdminController::class, 'create'])->name('admin.users.create');
+    Route::post('admin/users', [AdminController::class, 'store'])->name('admin.users.store');
+    Route::get('admin/users/{user}/edit', [AdminController::class, 'edit'])->name('admin.users.edit');
+    Route::put('admin/users/{user}', [AdminController::class, 'update'])->name('admin.users.update');
+    Route::delete('admin/users/{user}', [AdminController::class, 'destroy'])->name('admin.users.destroy');
+
+    // Destinos
     Route::get('destinos/create', [DestinoController::class, 'create'])->name('destinos.create');
     Route::post('destinos', [DestinoController::class, 'store'])->name('destinos.store');
     Route::get('destinos/{destino}/edit', [DestinoController::class, 'edit'])->name('destinos.edit');
     Route::put('destinos/{destino}', [DestinoController::class, 'update'])->name('destinos.update');
     Route::delete('destinos/{destino}', [DestinoController::class, 'destroy'])->name('destinos.destroy');
-
-    // También tienes rutas admin como esta:
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 });

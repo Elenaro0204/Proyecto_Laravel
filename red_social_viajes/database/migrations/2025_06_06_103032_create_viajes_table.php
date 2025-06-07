@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('titulo');
             $table->text('descripcion');
             $table->string('foto')->nullable();
+            $table->date('fecha_inicio')->nullable();
+            $table->date('fecha_fin')->nullable();
             $table->timestamps();
         });
     }

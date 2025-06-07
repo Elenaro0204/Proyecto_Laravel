@@ -42,6 +42,16 @@
             <x-input-error :messages="$errors->get('destino_id')" class="mt-2" />
         </div>
 
+        <div class="mb-4">
+            <label for="fecha_inicio" class="block text-gray-700">Fecha de inicio</label>
+            <input type="date" name="fecha_inicio" id="fecha_inicio" value="{{ old('fecha_inicio', $viaje->fecha_inicio ?? '') }}" class="w-full border border-gray-300 rounded px-3 py-2">
+        </div>
+
+        <div class="mb-4">
+            <label for="fecha_fin" class="block text-gray-700">Fecha de fin</label>
+            <input type="date" name="fecha_fin" id="fecha_fin" value="{{ old('fecha_fin', $viaje->fecha_fin ?? '') }}" class="w-full border border-gray-300 rounded px-3 py-2">
+        </div>
+
         <div>
             <x-input-label for="foto" :value="__('Foto (opcional)')" />
             <input id="foto" name="foto" type="file" accept="image/*" class="mt-1 block w-full text-sm text-gray-500
