@@ -2,9 +2,8 @@
     <div class="max-w-md w-full bg-white bg-opacity-90 rounded-3xl shadow-2xl p-10 space-y-8">
         <div class="text-center">
             {{-- Icono de avión (puedes cambiarlo por otro SVG si quieres) --}}
-            <svg class="mx-auto h-14 w-14 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.5 3v3m0 0L3 9l7.5-3zm0 0L21 14l-7.5-3zM3 21h18" />
-            </svg>
+            <img src="{{ asset('assets/avion.png') }}" alt="Icono web" class="mx-auto block w-20 h-auto rounded mb-3">
+
             <h2 class="mt-4 text-3xl font-extrabold text-gray-900">
                 Bienvenido a GoTogether
             </h2>

@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class ProfileController extends Controller
 {
@@ -67,5 +69,31 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = $request->user();
+
+        // Validar formulario
+        $request->validate([
+            'current_password' => ['required'],
+            'password' => ['required', 'confirmed', 'min:8'],
+        ]);
+
+        // Verificar que la contraseña actual coincida
+        if (!Hash::check($request->current_password, $user->password)) {
+            // Puedes usar ValidationException para mostrar error en el formulario
+            throw ValidationException::withMessages([
+                'current_password' => 'La contraseña actual no es correcta.',
+            ]);
+        }
+
+        // Actualizar la contraseña
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        // Redirigir con mensaje de éxito (puedes usar session flash)
+        return redirect()->route('profile.edit')->with('status', 'Contraseña actualizada correctamente.');
     }
 }

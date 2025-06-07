@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Models\Viaje;
+use App\Models\Destino;
+
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
@@ -49,5 +51,10 @@ class User extends Authenticatable
     public function viajes(): HasMany
     {
         return $this->hasMany(Viaje::class);
+    }
+
+    public function destinosVisitados()
+    {
+        return $this->hasMAny(Destino::class);
     }
 }

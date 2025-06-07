@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
@@ -22,9 +23,7 @@ require __DIR__ . '/auth.php';
 // Rutas para usuarios autenticados
 Route::middleware(['auth', 'verified'])->group(function () {
     // Vista principal tras login
-    Route::get('/dashboard', function () {
-        return redirect()->route('viajes.index');
-    })->name('dashboard');
+    Route::get('/index', [HomeController::class, 'index'])->name('index');
 
     // CRUD de viajes para usuarios normales
     Route::get('/viajes', [ViajeController::class, 'index'])->name('viajes.index');
@@ -33,13 +32,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // CRUD de destinos
     Route::get('destinos', [DestinoController::class, 'index'])->name('destinos.index');
-    Route::get('destinos/{destino}', [DestinoController::class, 'show'])->name('destinos.show');
+    Route::get('destinos/{destino}', [DestinoController::class, 'create'])->name('destinos.create');
 
     // Perfil (lo incluye Breeze)
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
 });
 
 // Rutas exclusivas para admin para modificar destinos

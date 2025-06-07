@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form action="{{ route('destinos.store') }}" method="POST" class="space-y-6">
+    <form action="{{ route('destinos.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
         @csrf
 
         <div>
@@ -33,6 +33,18 @@
             <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
             <textarea name="descripcion" id="descripcion" rows="4"
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">{{ old('descripcion') }}</textarea>
+        </div>
+
+        <div>
+            <x-input-label for="imagen" :value="__('Foto (opcional)')" />
+            <input id="imagen" name="imagen" type="file" accept="destino/*" class="mt-1 block w-full text-sm text-gray-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-full file:border-0
+                file:text-sm file:font-semibold
+                file:bg-indigo-50 file:text-indigo-700
+                hover:file:bg-indigo-100
+            " />
+            <x-input-error :messages="$errors->get('imagen')" class="mt-2" />
         </div>
 
         <div class="flex space-x-3">

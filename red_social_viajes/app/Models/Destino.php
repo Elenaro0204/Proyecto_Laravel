@@ -9,7 +9,7 @@ class Destino extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre', 'pais', 'descripcion'];
+    protected $fillable = ['nombre', 'pais', 'descripcion', 'imagen'];
 
     public function viajes()
     {

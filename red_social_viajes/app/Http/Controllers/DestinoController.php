@@ -24,7 +24,15 @@ class DestinoController extends Controller
             'nombre' => 'required|string|max:255',
             'pais' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/destinos', $filename);
+            $validatedData['imagen'] = $filename;
+        }
 
         Destino::create($validatedData);
 
@@ -43,7 +51,18 @@ class DestinoController extends Controller
             'nombre' => 'required|string|max:255',
             'pais' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/destinos', $filename);
+            $validatedData['imagen'] = $filename;
+
+            // Opcional: borrar la imagen antigua si quieres limpiar almacenamiento
+            Storage::delete('public/destinos/' . $destino->imagen);
+        }
 
         $destino->update($request->all());
 
