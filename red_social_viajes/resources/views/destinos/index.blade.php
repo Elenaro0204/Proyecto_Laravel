@@ -35,7 +35,7 @@
                     <tr class="hover:bg-indigo-50 transition">
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $destino->nombre }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $destino->pais }}</td>
-                        <td class="px-6 py-4 max-w-xs text-sm text-gray-600">{{ Str::limit($destino->descripcion, 70) }}</td>
+                        <td class="px-6 py-4 max-w-xs text-sm text-gray-600">{{ $destino->descripcion }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-center">
                             @if($destino->imagen)
                                 <img src="{{ asset('storage/' . $destino->imagen) }}" alt="{{ $destino->nombre }}" class="inline-block h-16 w-24 object-cover rounded-md border border-gray-300 shadow-sm" />
@@ -45,11 +45,22 @@
                         </td>
                         @if(auth()->check() && auth()->user()->isAdmin())
                         <td class="px-6 py-4 whitespace-nowrap text-center space-x-4">
-                            <a href="{{ route('destinos.edit', $destino) }}" class="text-indigo-600 hover:text-indigo-900 font-semibold">Editar</a>
+                            <a href="{{ route('destinos.edit', $destino) }}" class="inline-flex items-center bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-4 py-1 rounded transition font-semibold">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5h6M9 7v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6M16 3l-4 4m-1 3l5 5" />
+                            </svg>
+                            Editar
+                        </a>
                             <form action="{{ route('destinos.destroy', $destino) }}" method="POST" class="inline-block" onsubmit="return confirm('¿Seguro que quieres eliminar este destino?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900 font-semibold">Eliminar</button>
+                                <button type="submit"
+                                    class="inline-flex items-center bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded font-semibold transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                    Eliminar
+                                </button>
                             </form>
                         </td>
                         @endif
@@ -64,6 +75,28 @@
         </div>
     @else
         <p class="text-gray-600 italic">No hay destinos disponibles.</p>
+    @endif
+
+    @if(auth()->check() && auth()->user()->isAdmin())
+        <div class="flex space-x-4 mt-6">
+            <a href="{{ route('admin.index') }}"
+            class="flex items-center px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+                Volver al Inicio
+            </a>
+        </div>
+    @else
+        <div class="flex space-x-4 mt-6">
+            <a href="{{ route('index') }}"
+            class="flex items-center px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+                Volver al Inicio
+            </a>
+        </div>
     @endif
 </div>
 @endsection

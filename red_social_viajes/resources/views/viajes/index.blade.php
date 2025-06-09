@@ -27,7 +27,7 @@
                         <p class="text-gray-700 flex-grow mb-6 leading-relaxed line-clamp-4">{{ $viaje->descripcion }}</p>
 
                         <div class="text-gray-600 space-y-2 mb-6 text-sm font-medium">
-                            <p><span class="font-semibold text-gray-800">Destino:</span> {{ $viaje->destino->nombre ?? 'Sin destino' }}</p>
+                            <p><span class="font-semibold text-gray-800">Destino:</span> {{ $viaje->destino->nombre ?? 'Sin destino' }} - {{ $viaje->destino->pais ?? 'Sin pais' }}</p>
                             <p><span class="font-semibold text-gray-800">Fecha:</span>
                                 {{ $viaje->fecha_inicio ? \Carbon\Carbon::parse($viaje->fecha_inicio)->format('d/m/Y') : '-' }} &mdash;
                                 {{ $viaje->fecha_fin ? \Carbon\Carbon::parse($viaje->fecha_fin)->format('d/m/Y') : '-' }}

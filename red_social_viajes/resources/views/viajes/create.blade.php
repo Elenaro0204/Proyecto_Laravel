@@ -3,7 +3,7 @@
 @section('content')
 <div class="max-w-3xl mx-auto p-10 bg-white rounded-2xl shadow-2xl border border-gray-100">
     <h1 class="text-4xl font-extrabold text-indigo-700 mb-12 text-center tracking-tight drop-shadow-sm">
-        Crear nuevo viaje
+        + Crear nuevo viaje
     </h1>
 
     @if ($errors->any())

@@ -12,7 +12,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/viajes';
+    public const HOME = '/index';
 
     /**
      * Define las rutas de la aplicación.

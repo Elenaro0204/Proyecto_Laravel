@@ -28,16 +28,6 @@
         </div>
 
         <div>
-            <label for="fecha" class="block text-lg font-semibold text-gray-800 mb-1">Fecha</label>
-            <input type="date" name="fecha" id="fecha" value="{{ old('fecha') }}" required
-                class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm
-                       focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
-            @error('fecha')
-                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div>
             <label for="destino_id" class="block text-lg font-semibold text-gray-800 mb-1">Destino</label>
             <select name="destino_id" id="destino_id" required
                 class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm

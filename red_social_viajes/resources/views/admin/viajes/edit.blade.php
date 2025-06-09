@@ -30,10 +30,10 @@
             <label for="destino_id" class="block text-sm font-semibold text-gray-800 mb-2">Destino</label>
             <select name="destino_id" id="destino_id" required
                 class="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm">
-                <option value="">Selecciona un destino</option>
+                <option value="">📍 Selecciona un destino</option>
                 @foreach($destinos as $destino)
                     <option value="{{ $destino->id }}" {{ old('destino_id', $viaje->destino_id) == $destino->id ? 'selected' : '' }}>
-                        {{ $destino->nombre }} - {{ $destino->ubicacion }}
+                        📍 {{ $destino->nombre }} - {{ $destino->pais }}
                     </option>
                 @endforeach
             </select>
@@ -45,13 +45,13 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <label for="fecha_inicio" class="block text-sm font-semibold text-gray-800 mb-2">Fecha de inicio</label>
-                <input type="date" name="fecha_inicio" id="fecha_inicio" value="{{ old('fecha_inicio', $viaje->fecha_inicio ?? '') }}"
+                <input type="date" name="fecha_inicio" id="fecha_inicio" value="{{ old('fecha_inicio', isset($viaje->fecha_inicio) ? $viaje->fecha_inicio->format('Y-m-d') : '') }}"
                     class="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm" />
             </div>
 
             <div>
                 <label for="fecha_fin" class="block text-sm font-semibold text-gray-800 mb-2">Fecha de fin</label>
-                <input type="date" name="fecha_fin" id="fecha_fin" value="{{ old('fecha_fin', $viaje->fecha_fin ?? '') }}"
+                <input type="date" name="fecha_fin" id="fecha_fin" value="{{ old('fecha_fin', isset($viaje->fecha_fin) ? $viaje->fecha_fin->format('Y-m-d') : '') }}"
                     class="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm" />
             </div>
         </div>
@@ -69,10 +69,20 @@
             @enderror
         </div>
 
-        <button type="submit"
-            class="w-full bg-indigo-600 text-white py-3 rounded-md text-lg font-semibold hover:bg-indigo-700 transition-shadow shadow-md hover:shadow-lg">
-            Guardar cambios
-        </button>
+        <div class="flex justify-end space-x-4">
+            <a href="{{ route('destinos.index') }}"
+                class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition"
+            >
+                Cancelar
+            </a>
+
+            <button
+                type="submit"
+                class="inline-flex items-center justify-center rounded-md bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition"
+            >
+                Actualizar viaje
+            </button>
+        </div>
     </form>
 </div>
 @endsection

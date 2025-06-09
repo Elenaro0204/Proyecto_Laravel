@@ -12,10 +12,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('destinos', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // crea un BIGINT UNSIGNED
             $table->string('nombre');
             $table->string('pais');
             $table->text('descripcion')->nullable();
+            $table->string('imagen')->nullable();
             $table->timestamps();
         });
     }

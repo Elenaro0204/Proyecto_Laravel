@@ -26,6 +26,12 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',  // Añade este campo
+        'telefono',
+        'direccion',
+        'fecha_nacimiento',
+        'avatar',
+        'ciudad',
+        'pais',
     ];
 
     protected $casts = [

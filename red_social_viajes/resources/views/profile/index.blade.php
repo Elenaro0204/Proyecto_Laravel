@@ -1,128 +1,131 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-3xl mx-auto sm:px-6 lg:px-8 space-y-8 py-8">
+<div class="max-w-5xl mx-auto sm:px-6 lg:px-8 py-10 space-y-10">
 
-    {{-- Título --}}
-    <h2 class="font-extrabold text-4xl text-indigo-700 tracking-wide text-center">
-        Perfil de <span class="text-indigo-900">{{ $user->name }}</span>
-    </h2>
+    {{-- Título y Avatar --}}
+    <div class="flex flex-col items-center gap-4">
+        <img src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=4f46e5&color=fff&size=128"
+             alt="Avatar de {{ $user->name }}"
+             class="w-32 h-32 rounded-full shadow-lg border-4 border-white" />
+        <h2 class="text-4xl font-extrabold text-indigo-800 tracking-tight text-center">
+            Perfil de <span class="text-indigo-950">{{ $user->name }}</span>
+        </h2>
+    </div>
 
     @if (session('status'))
-    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6" role="alert">
-        {{ session('status') }}
-    </div>
-@endif
-
-    {{-- Info Usuario --}}
-    <div class="bg-white shadow-md rounded-xl p-8 border border-gray-200">
-        <h3 class="text-xl font-semibold mb-6 text-gray-800 border-b pb-2">Información del Usuario</h3>
-        <div class="space-y-4 text-gray-700 text-base leading-relaxed">
-            <p><span class="font-semibold text-gray-900">Nombre:</span> {{ $user->name }}</p>
-            <p><span class="font-semibold text-gray-900">Email:</span> {{ $user->email }}</p>
-            <p><span class="font-semibold text-gray-900">Registrado desde:</span> {{ $user->created_at->format('d/m/Y') }}</p>
-            {{-- Más información opcional --}}
-            @if($user->telefono ?? false)
-                <p><span class="font-semibold text-gray-900">Teléfono:</span> {{ $user->telefono }}</p>
-            @endif
-            @if($user->direccion ?? false)
-                <p><span class="font-semibold text-gray-900">Dirección:</span> {{ $user->direccion }}</p>
-            @endif
-            @if($user->fecha_nacimiento ?? false)
-                <p><span class="font-semibold text-gray-900">Fecha de nacimiento:</span> {{ \Carbon\Carbon::parse($user->fecha_nacimiento)->format('d/m/Y') }}</p>
-            @endif
+        <div class="bg-green-100 border border-green-400 text-green-800 px-4 py-3 rounded shadow" role="alert">
+            {{ session('status') }}
         </div>
-        <div class="mt-8 flex justify-end space-x-4">
-            <a href="{{ route('profile.edit') }}"
-                class="inline-block px-7 py-3 bg-indigo-600 text-white rounded-lg font-semibold shadow-md
-                       hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition"
-            >
-                Editar Perfil
-            </a>
-            <button
-                type="button"
-                onclick="document.getElementById('change-password-section').classList.toggle('hidden')"
-                class="inline-block px-7 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold shadow-md
-                       hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition"
-            >
-                Cambiar contraseña
-            </button>
+    @endif
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {{-- Información del Usuario --}}
+        <div class="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Información personal</h3>
+            <ul class="text-gray-700 space-y-2">
+                <li><strong>Nombre:</strong> {{ $user->name }}</li>
+                <li><strong>Email:</strong> {{ $user->email }}</li>
+                <li><strong>Registrado desde:</strong> {{ $user->created_at->format('d/m/Y') }}</li>
+                @if($user->telefono)
+                    <li><strong>Teléfono:</strong> {{ $user->telefono }}</li>
+                @endif
+                @if($user->direccion)
+                    <li><strong>Dirección:</strong> {{ $user->direccion }}</li>
+                @endif
+                @if($user->fecha_nacimiento)
+                    <li><strong>Fecha de nacimiento:</strong> {{ \Carbon\Carbon::parse($user->fecha_nacimiento)->format('d/m/Y') }}</li>
+                @endif
+            </ul>
+
+            <div class="flex justify-end mt-6 gap-4">
+                <a href="{{ route('profile.edit') }}"
+                    class="px-5 py-2 bg-indigo-600 text-white font-semibold rounded hover:bg-indigo-700 transition">
+                    Editar Perfil
+                </a>
+                <button onclick="document.getElementById('change-password-section').classList.toggle('hidden')"
+                    class="px-5 py-2 bg-gray-300 text-gray-800 font-semibold rounded hover:bg-gray-400 transition">
+                    Cambiar contraseña
+                </button>
+            </div>
+        </div>
+
+        {{-- Sobre mí y estadísticas --}}
+        <div class="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Sobre mí</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+                Hola, soy {{ $user->name }}, amante de los viajes, la cultura y los nuevos destinos. Me encanta compartir mis experiencias y descubrir rincones escondidos de España y del mundo.
+            </p>
+
+            <div class="grid grid-cols-2 gap-4 text-center text-indigo-700 font-semibold">
+                <div class="bg-indigo-100 rounded-xl p-4">
+                    <p class="text-3xl">{{ $viajes->count() }}</p>
+                    <p class="text-sm text-indigo-900">Viajes publicados</p>
+                </div>
+                <div class="bg-indigo-100 rounded-xl p-4">
+                    <p class="text-3xl">4.7★</p>
+                    <p class="text-sm text-indigo-900">Valoración media</p>
+                </div>
+            </div>
         </div>
     </div>
 
     {{-- Cambiar Contraseña --}}
-    <div id="change-password-section" class="bg-white shadow-md rounded-xl p-8 border border-gray-200 hidden">
-        <h3 class="text-xl font-semibold mb-6 text-gray-800 border-b pb-2">Cambiar contraseña</h3>
-        <form method="POST" action="{{ route('profile.password.update') }}" class="space-y-6">
+    <div id="change-password-section" class="bg-white shadow-md rounded-xl p-6 border border-gray-200 hidden">
+        <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Cambiar contraseña</h3>
+        <form method="POST" action="{{ route('profile.password.update') }}" class="space-y-5">
             @csrf
             @method('PUT')
 
             <div>
-                <label for="current_password" class="block text-sm font-semibold text-gray-700 mb-2">Contraseña actual</label>
-                <input
-                    id="current_password"
-                    name="current_password"
-                    type="password"
-                    required
-                    class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 placeholder-gray-400 shadow-sm
-                           focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
-                />
+                <label for="current_password" class="block font-semibold mb-2 text-sm">Contraseña actual</label>
+                <input type="password" name="current_password" id="current_password" required
+                       class="w-full border px-4 py-3 rounded shadow-sm focus:ring-2 focus:ring-indigo-500">
                 <x-input-error :messages="$errors->get('current_password')" class="mt-2" />
             </div>
 
             <div>
-                <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">Nueva contraseña</label>
-                <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    required
-                    class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 placeholder-gray-400 shadow-sm
-                           focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
-                />
+                <label for="password" class="block font-semibold mb-2 text-sm">Nueva contraseña</label>
+                <input type="password" name="password" id="password" required
+                       class="w-full border px-4 py-3 rounded shadow-sm focus:ring-2 focus:ring-indigo-500">
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
 
             <div>
-                <label for="password_confirmation" class="block text-sm font-semibold text-gray-700 mb-2">Confirmar nueva contraseña</label>
-                <input
-                    id="password_confirmation"
-                    name="password_confirmation"
-                    type="password"
-                    required
-                    class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 placeholder-gray-400 shadow-sm
-                           focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
-                />
+                <label for="password_confirmation" class="block font-semibold mb-2 text-sm">Confirmar nueva contraseña</label>
+                <input type="password" name="password_confirmation" id="password_confirmation" required
+                       class="w-full border px-4 py-3 rounded shadow-sm focus:ring-2 focus:ring-indigo-500">
             </div>
 
-            <div class="flex justify-end">
-                <button
-                    type="submit"
-                    class="inline-flex items-center px-7 py-3 bg-indigo-600 rounded-lg text-white font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition"
-                >
+            <div class="text-right">
+                <button type="submit"
+                        class="bg-indigo-600 text-white font-semibold px-6 py-2 rounded hover:bg-indigo-700 transition">
                     Actualizar contraseña
                 </button>
             </div>
         </form>
     </div>
 
-    {{-- Viajes del usuario --}}
-    <div class="bg-white shadow-md rounded-xl p-8 border border-gray-200">
-        <h3 class="text-xl font-semibold mb-6 text-gray-800 border-b pb-2">Mis Publicaciones de Viajes</h3>
+    {{-- Publicaciones de viajes --}}
+    <div class="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
+        <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Mis Publicaciones de Viajes</h3>
 
         @if(isset($viajes) && $viajes->count())
-            <ul class="list-disc list-inside space-y-3 text-gray-700 text-base">
+            <div class="grid gap-4 md:grid-cols-2">
                 @foreach($viajes as $viaje)
-                    <li class="hover:text-indigo-600 transition cursor-default">
-                        <span class="font-semibold">{{ $viaje->titulo }}</span> -
-                        <span class="italic text-gray-500">{{ $viaje->fecha_inicio?->format('d/m/Y') ?? 'Sin fecha' }}</span>
-                    </li>
+                    <div class="border rounded-xl p-4 shadow hover:shadow-md transition bg-indigo-50">
+                        <h4 class="text-lg font-semibold text-indigo-800">{{ $viaje->titulo }}</h4>
+                        <p class="text-sm text-gray-600 italic">
+                            {{ $viaje->fecha_inicio?->format('d/m/Y') ?? 'Sin fecha' }}
+                            al
+                            {{ $viaje->fecha_fin?->format('d/m/Y') ?? 'Sin fecha' }}
+                        </p>
+                    </div>
                 @endforeach
-            </ul>
+            </div>
         @else
-            <p class="text-gray-500 italic">No tienes viajes publicados.</p>
+            <p class="text-gray-500 italic">No tienes viajes publicados aún.</p>
         @endif
     </div>
-
 </div>
 @endsection

@@ -40,7 +40,7 @@
             <h2 class="text-3xl font-bold text-blue-600">
                 {{ $destinosCount ?? 0 }}
             </h2>
-            <p class="text-gray-600 mt-2 font-medium">Destinos visitados</p>
+            <p class="text-gray-600 mt-2 font-medium">Destinos posibles</p>
         </div>
     </div>
 
@@ -72,7 +72,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-6">
             @foreach($destinosPopulares ?? [] as $destino)
                 <div class="rounded-lg overflow-hidden shadow hover:shadow-lg transition cursor-pointer">
-                    <img src="{{ asset('storage/destinos/' . $destino->imagen) }}" alt="{{ $destino->nombre }}" class="w-full h-40 object-cover">
+                    <img src="{{ asset('storage/' . $destino->imagen) }}" alt="{{ $destino->nombre }}" class="w-full h-40 object-cover">
                     <div class="p-4">
                         <h3 class="text-lg font-semibold text-indigo-600">{{ $destino->nombre }}</h3>
                         <p class="text-gray-600 text-sm">{{ Str::limit($destino->descripcion, 60) }}</p>

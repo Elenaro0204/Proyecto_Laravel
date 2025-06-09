@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-3xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-    <h1 class="text-2xl font-semibold mb-6">Crear nuevo destino</h1>
+<div class="max-w-3xl mx-auto p-10 bg-white rounded-2xl shadow-2xl border border-gray-100">
+    <h1 class="text-4xl font-extrabold text-indigo-700 mb-12 text-center tracking-tight drop-shadow-sm">Crear nuevo destino</h1>
 
     @if ($errors->any())
         <div class="mb-6 rounded bg-red-100 border border-red-400 text-red-700 px-4 py-3">

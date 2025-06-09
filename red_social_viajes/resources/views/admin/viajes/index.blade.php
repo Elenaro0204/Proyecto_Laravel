@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto py-8 px-4">
-    <h1 class="text-3xl font-bold mb-8 text-indigo-700">Gestión de Viajes</h1>
+    <h1 class="text-4xl font-extrabold text-center mb-8 text-indigo-700">Gestión de Viajes</h1>
 
     <a href="{{ route('admin.viajes.create') }}"
        class="inline-block mb-6 rounded bg-indigo-600 text-white px-5 py-2 hover:bg-indigo-700 transition">
@@ -31,7 +31,7 @@
                     <td class="px-6 py-4 max-w-xs text-sm text-gray-600" title="{{ $viaje->descripcion }}">{{ $viaje->descripcion }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $viaje->created_at->format('d/m/Y') }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $viaje->user->name ?? 'No asignado' }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $viaje->destino->nombre ?? 'Sin destino' }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $viaje->destino->nombre ?? 'Sin destino' }} - {{ $viaje->destino->pais ?? 'Sin pais' }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $viaje->fecha_inicio ? \Carbon\Carbon::parse($viaje->fecha_inicio)->format('d/m/Y') : '-' }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $viaje->fecha_fin ? \Carbon\Carbon::parse($viaje->fecha_fin)->format('d/m/Y') : '-' }}</td>
                     <td class="py-3 px-4 text-center">
@@ -67,6 +67,16 @@
                 @endif
             </tbody>
         </table>
+    </div>
+
+    <div class="flex space-x-4 mt-6">
+        <a href="{{ route('admin.index') }}"
+        class="flex items-center px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            Volver al Inicio
+        </a>
     </div>
 </div>
 @endsection

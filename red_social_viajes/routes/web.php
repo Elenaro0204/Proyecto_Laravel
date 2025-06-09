@@ -8,11 +8,22 @@ use App\Http\Controllers\ViajeController;
 use App\Http\Controllers\DestinoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use Illuminate\Support\Facades\Auth;
 
 // Página de inicio: redirige a login
+// Route::get('/', function () {
+//     if (Auth::check()) {
+//         return redirect()->route('index');
+//     } else {
+//         return redirect()->route('login');
+//     }
+// })->middleware(['auth', 'verified'])->name('login');
+
 Route::get('/', function () {
+    Auth::logout();
     return redirect()->route('login');
 });
+
 
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);

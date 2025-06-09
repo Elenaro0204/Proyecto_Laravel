@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Destino;
+use Illuminate\Support\Str;
+
+use Illuminate\Support\Facades\Storage;
 
 class DestinoController extends Controller
 {
@@ -27,14 +30,22 @@ class DestinoController extends Controller
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
+        $path = null;
         if ($request->hasFile('imagen')) {
             $file = $request->file('imagen');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/destinos', $filename);
-            $validatedData['imagen'] = $filename;
+            $nombreSlug = Str::slug($request->nombre);
+            $extension = $file->getClientOriginalExtension();
+            $filename = $nombreSlug . '.' . $extension;
+
+            $path = $file->storeAs('destinos', $filename, 'public');
         }
 
-        Destino::create($validatedData);
+        Destino::create([
+            'nombre' => $request->nombre,
+            'pais' => $request->pais,
+            'descripcion' => $request->descripcion,
+            'imagen' => $path,
+        ]);
 
         return redirect()->route('destinos.index')->with('success', 'Destino creado correctamente.');
     }
@@ -54,23 +65,39 @@ class DestinoController extends Controller
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        if ($request->hasFile('imagen')) {
-            $file = $request->file('imagen');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/destinos', $filename);
-            $validatedData['imagen'] = $filename;
+        $path = $destino->imagen;
 
-            // Opcional: borrar la imagen antigua si quieres limpiar almacenamiento
-            Storage::delete('public/destinos/' . $destino->imagen);
+        if ($request->hasFile('imagen')) {
+            // Borramos la imagen anterior si existe
+            if ($destino->imagen) {
+                Storage::disk('public')->delete($destino->imagen);
+            }
+
+            $file = $request->file('imagen');
+            $nombreSlug = Str::slug($request->nombre);
+            $extension = $file->getClientOriginalExtension();
+            $filename = $nombreSlug . '.' . $extension;
+
+            $path = $file->storeAs('destinos', $filename, 'public');
         }
 
-        $destino->update($request->all());
+        $destino->update([
+            'nombre' => $request->nombre,
+            'pais' => $request->pais,
+            'descripcion' => $request->descripcion,
+            'imagen' => $path,
+        ]);
 
         return redirect()->route('destinos.index')->with('success', 'Destino actualizado correctamente.');
     }
 
     public function destroy(Destino $destino)
     {
+
+        if ($destino->imagen) {
+            Storage::disk('public')->delete($destino->imagen);
+        }
+
         $destino->delete();
 
         return redirect()->route('destinos.index')->with('success', 'Destino eliminado correctamente.');
