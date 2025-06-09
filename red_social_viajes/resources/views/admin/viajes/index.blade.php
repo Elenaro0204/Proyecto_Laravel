@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto py-8 px-4">
-    <h1 class="text-4xl font-extrabold text-center mb-8 text-indigo-700">Gestión de Viajes</h1>
+    <h1 class="text-4xl font-extrabold text-center mb-8 text-indigo-700">Gestión Viajes</h1>
 
     <a href="{{ route('admin.viajes.create') }}"
        class="inline-block mb-6 rounded bg-indigo-600 text-white px-5 py-2 hover:bg-indigo-700 transition">

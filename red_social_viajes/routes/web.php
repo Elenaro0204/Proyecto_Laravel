@@ -40,6 +40,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/viajes', [ViajeController::class, 'index'])->name('viajes.index');
     Route::get('/viajes/create', [ViajeController::class, 'create'])->name('viajes.create');
     Route::post('/viajes', [ViajeController::class, 'store'])->name('viajes.store');
+    Route::get('/viajes/{viaje}/edit', [ViajeController::class, 'edit'])->name('viajes.edit');
+        Route::put('/viajes/{viaje}', [ViajeController::class, 'update'])->name('viajes.update');
+    Route::delete('/viajes/{viaje}', [ViajeController::class, 'destroy'])->name('viajes.destroy');
 
     // CRUD de destinos
     Route::get('destinos', [DestinoController::class, 'index'])->name('destinos.index');

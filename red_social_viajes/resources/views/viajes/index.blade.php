@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto px-6 py-10 max-w-7xl">
-    <h1 class="text-4xl font-extrabold text-center mb-8 text-indigo-700">Viajes recientes</h1>
+    <h1 class="text-4xl font-extrabold text-center mb-8 text-indigo-700">Lista de Viajes</h1>
 
     <a href="{{ route('viajes.create') }}"
         class="inline-block mb-6 rounded bg-indigo-600 text-white px-5 py-2 hover:bg-indigo-700 transition">
@@ -38,7 +38,7 @@
                         <small class="text-gray-400 mb-6 block">{{ $viaje->created_at->format('d/m/Y H:i') }}</small>
 
                         <div class="mt-auto flex flex-wrap gap-3 items-center">
-                            @can('update', $viaje)
+                            @if(auth()->check() && auth()->user()->isAdmin())
                                 <a href="{{ route('admin.viajes.edit', $viaje->id) }}"
                                    class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-5 py-2 rounded-lg font-semibold shadow-md
                                           transition duration-300 transform hover:-translate-y-0.5">
@@ -56,8 +56,28 @@
                                     </button>
                                 </form>
                             @else
-                                <p class="text-gray-400 italic ml-2">No autorizado</p>
-                            @endcan
+                                @can('update', $viaje)
+                                <a href="{{ route('viajes.edit', $viaje->id) }}"
+                                class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-5 py-2 rounded-lg font-semibold shadow-md
+                                        transition duration-300 transform hover:-translate-y-0.5">
+                                    Editar
+                                </a>
+
+                                <form action="{{ route('viajes.destroy', $viaje->id) }}" method="POST"
+                                    onsubmit="return confirm('¿Seguro que quieres eliminar este viaje?')" class="inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                            class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg font-semibold shadow-md
+                                                transition duration-300 transform hover:-translate-y-0.5">
+                                        Eliminar
+                                    </button>
+                                </form>
+                                @else
+                                    <p class="text-gray-400 italic ml-2">No autorizado</p>
+                                @endcan
+                            @endif
+
 
                             @can('view', $viaje)
                                 <a href="{{ route('viajes.show', $viaje->id) }}"

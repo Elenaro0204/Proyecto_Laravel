@@ -4,7 +4,7 @@
 <div class="container mx-auto py-10 max-w-3xl bg-white rounded-lg shadow-lg px-8">
     <h1 class="text-4xl font-extrabold text-indigo-700 mb-8 border-b-2 border-indigo-300 pb-3">Editar viaje</h1>
 
-    <form action="{{ route('admin.viajes.update', $viaje->id) }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+    <form action="{{ route('viajes.update', $viaje->id) }}" method="POST" enctype="multipart/form-data" class="space-y-8">
         @csrf
         @method('PUT')
 

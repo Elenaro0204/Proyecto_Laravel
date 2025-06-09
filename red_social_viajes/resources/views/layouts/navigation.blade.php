@@ -15,16 +15,24 @@
                     Inicio
                 </x-nav-link>
 
-                <x-nav-link :href="route('viajes.index')" :active="request()->routeIs('viajes.*')" class="text-gray-700 hover:text-indigo-600 transition">
-                    Viajes
-                </x-nav-link>
+                @if(auth()->user() && !auth()->user()->isAdmin())
+                    <x-nav-link :href="route('viajes.index')" :active="request()->routeIs('viajes.*')" class="text-gray-700 hover:text-indigo-600 transition">
+                        Viajes
+                    </x-nav-link>
+                @endif
+
+                @if(auth()->user() && auth()->user()->isAdmin())
+                    <x-nav-link :href="route('admin.viajes.index')" :active="request()->routeIs('admin.viajes.*')" class="text-gray-700 hover:text-indigo-600 transition">
+                        Viajes
+                    </x-nav-link>
+                @endif
 
                 <x-nav-link :href="route('destinos.index')" :active="request()->routeIs('destinos.*')" class="text-gray-700 hover:text-indigo-600 transition">
                     Destinos
                 </x-nav-link>
 
                 @if(auth()->user() && auth()->user()->isAdmin())
-                    <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.*')" class="text-gray-700 hover:text-indigo-600 transition">
+                    <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')" class="text-gray-700 hover:text-indigo-600 transition">
                         Admin
                     </x-nav-link>
                 @endif
@@ -36,8 +44,11 @@
                     <x-slot name="trigger">
                         <button
                             class="flex items-center space-x-2 text-gray-600 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md transition">
-                            <span class="inline-block h-10 w-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-lg select-none">{{ Auth::user()->name }}</span>
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=e0e7ff&color=4f46e5&size=128&bold=true"
+                                class="inline-block h-10 w-10 rounded-full flex items-center justify-center font-bold text-lg select-none" alt="Avatar">
+
+                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                       d="M19 9l-7 7-7-7" />
                             </svg>
@@ -81,16 +92,24 @@
                 Inicio
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('viajes.index')" :active="request()->routeIs('viajes.*')" class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">
-                Viajes
-            </x-responsive-nav-link>
+            @if(auth()->user() && !auth()->user()->isAdmin())
+                <x-responsive-nav-link :href="route('viajes.index')" :active="request()->routeIs('viajes.*')" class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">
+                    Viajes
+                </x-responsive-nav-link>
+            @endif
+
+            @if(auth()->user() && auth()->user()->isAdmin())
+                <x-responsive-nav-link :href="route('admin.viajes.index')" :active="request()->routeIs('admin.viajes.*')" class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">
+                    Viajes
+                </x-responsive-nav-link>
+            @endif
 
             <x-responsive-nav-link :href="route('destinos.index')" :active="request()->routeIs('destinos.*')" class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">
                 Destinos
             </x-responsive-nav-link>
 
             @if(auth()->user() && auth()->user()->isAdmin())
-                <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.*')" class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">
+                <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')" class="text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">
                     Admin
                 </x-responsive-nav-link>
             @endif
@@ -99,10 +118,8 @@
         <div class="border-t border-gray-200 pt-4 pb-3">
             <div class="px-4 flex items-center space-x-3">
                 <div class="flex-shrink-0">
-                    <!-- Aquí podrías poner el avatar del usuario si tienes -->
-                    <span class="inline-block h-10 w-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-lg select-none">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                    </span>
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=e0e7ff&color=4f46e5&size=128&bold=true"
+                                class="inline-block h-10 w-10 rounded-full flex items-center justify-center font-bold text-lg select-none" alt="Avatar">
                 </div>
                 <div>
                     <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>

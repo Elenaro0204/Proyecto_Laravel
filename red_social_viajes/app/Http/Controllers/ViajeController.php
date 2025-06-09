@@ -59,7 +59,6 @@ class ViajeController extends Controller
 
     public function edit(Viaje $viaje)
     {
-        $this->authorize('update', $viaje);
 
         $destinos = Destino::all();
         return view('viajes.edit', compact('viaje', 'destinos'));
@@ -67,7 +66,6 @@ class ViajeController extends Controller
 
     public function update(Request $request, Viaje $viaje)
     {
-        $this->authorize('update', $viaje);
 
         $request->validate([
             'titulo' => 'required|string|max:255',
@@ -104,7 +102,6 @@ class ViajeController extends Controller
 
     public function destroy(Viaje $viaje)
     {
-        $this->authorize('delete', $viaje);
 
         // Eliminar foto si existe
         if ($viaje->foto) {
