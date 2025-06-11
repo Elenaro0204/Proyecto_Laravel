@@ -32,6 +32,12 @@
                                 {{ $viaje->fecha_inicio ? \Carbon\Carbon::parse($viaje->fecha_inicio)->format('d/m/Y') : '-' }} &mdash;
                                 {{ $viaje->fecha_fin ? \Carbon\Carbon::parse($viaje->fecha_fin)->format('d/m/Y') : '-' }}
                             </p>
+                            <p class="font-semibold text-gray-800">
+                                Enlace:
+                                <a href="https://www.google.com/maps/search/{{ urlencode($viaje->destino->nombre . ', ' . $viaje->destino->pais) }}" target="_blank" class="px-0 py-4 whitespace-nowrap text-sm text-indigo-600 underline">
+                                    Ver en Maps
+                                </a>
+                            </p>
                             <p><span class="font-semibold text-gray-800">Publicado por:</span> {{ $viaje->user->name ?? 'Usuario desconocido' }}</p>
                         </div>
 
@@ -74,7 +80,7 @@
                                     </button>
                                 </form>
                                 @else
-                                    <p class="text-gray-400 italic ml-2">No autorizado</p>
+                                    <p class="text-indigo-400 italic ml-2">No autorizado</p>
                                 @endcan
                             @endif
 

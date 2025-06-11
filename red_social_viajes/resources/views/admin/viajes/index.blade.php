@@ -49,10 +49,10 @@
                         @endif
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 underline">
-                                <a href="https://www.google.com/maps/search/{{ urlencode($viaje->destino->nombre . ', ' . $viaje->destino->pais) }}" target="_blank">
-                                    Ver en Maps
-                                </a>
-                            </td>
+                        <a href="https://www.google.com/maps/search/{{ urlencode($viaje->destino->nombre . ', ' . $viaje->destino->pais) }}" target="_blank">
+                            Ver en Maps
+                        </a>
+                    </td>
                     <td class="px-6 py-4 whitespace-nowrap text-center space-x-4">
                         <a href="{{ route('admin.viajes.edit', $viaje->id) }}"
                            class="inline-flex items-center bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-4 py-1 rounded transition font-semibold">

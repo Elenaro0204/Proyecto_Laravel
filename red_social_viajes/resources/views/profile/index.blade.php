@@ -22,7 +22,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {{-- Información del Usuario --}}
         <div class="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Información personal</h3>
+            <h3 class="text-xl font-semibold text-indigo-700 border-b pb-2 mb-4">Información personal</h3>
             <ul class="text-gray-700 space-y-2">
                 <li><strong>Nombre:</strong> {{ $user->name }}</li>
                 <li><strong>Email:</strong> {{ $user->email }}</li>
@@ -52,7 +52,7 @@
 
         {{-- Sobre mí y estadísticas --}}
         <div class="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Sobre mí</h3>
+            <h3 class="text-xl font-semibold text-indigo-700 border-b pb-2 mb-4">Sobre mí</h3>
             <p class="text-gray-600 leading-relaxed mb-6">
                 Hola, soy {{ $user->name }}, amante de los viajes, la cultura y los nuevos destinos. Me encanta compartir mis experiencias y descubrir rincones escondidos de España y del mundo.
             </p>
@@ -72,7 +72,7 @@
 
     {{-- Cambiar Contraseña --}}
     <div id="change-password-section" class="bg-white shadow-md rounded-xl p-6 border border-gray-200 hidden">
-        <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Cambiar contraseña</h3>
+        <h3 class="text-xl font-semibold text-indigo-700 border-b pb-2 mb-4">Cambiar contraseña</h3>
         <form method="POST" action="{{ route('profile.password.update') }}" class="space-y-5">
             @csrf
             @method('PUT')
@@ -108,7 +108,7 @@
 
     {{-- Publicaciones de viajes --}}
     <div class="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
-        <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Mis Publicaciones de Viajes</h3>
+        <h3 class="text-xl font-semibold text-indigo-700 border-b pb-2 mb-4">Mis Publicaciones de Viajes</h3>
 
         @if(isset($viajes) && $viajes->count())
             <div class="grid gap-4 md:grid-cols-2">

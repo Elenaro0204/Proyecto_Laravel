@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-6">
+<div class="max-w-3xl mx-auto py-10 px-6 sm:px-8 lg:px-1">
 
     {{-- Título --}}
-    <h2 class="font-bold text-3xl text-gray-800 leading-tight mb-6">
+    <h1 class="text-3xl font-extrabold text-indigo-700 mb-8 text-center">
         Editar Perfil de {{ $user->name }}
-    </h2>
+    </h1>
 
     {{-- Mensaje de éxito --}}
     @if(session('status'))
