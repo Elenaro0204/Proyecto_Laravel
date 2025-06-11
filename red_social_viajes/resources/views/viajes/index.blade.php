@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-6 py-10 max-w-7xl">
+<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
     <h1 class="text-4xl font-extrabold text-center mb-8 text-indigo-700">Lista de Viajes</h1>
 
     <a href="{{ route('viajes.create') }}"

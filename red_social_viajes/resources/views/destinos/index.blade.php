@@ -49,7 +49,9 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
                                 @if($destino->imagen)
-                                    <img src="{{ asset('storage/' . $destino->imagen) }}" alt="{{ $destino->nombre }}" class="inline-block h-16 w-24 object-cover rounded-md border border-gray-300 shadow-sm" />
+                                    <img src="{{ asset('storage/' . $destino->imagen) }}"
+                                        alt="{{ $destino->nombre }}"
+                                        class="inline-block h-16 w-24 object-cover rounded-md border border-gray-300 shadow-sm" />
                                 @else
                                     <span class="text-gray-400 italic text-xs">Sin imagen</span>
                                 @endif
@@ -64,11 +66,11 @@
                             @if(auth()->check() && auth()->user()->isAdmin())
                                 <td class="px-6 py-4 whitespace-nowrap text-center space-x-4">
                                     <a href="{{ route('destinos.edit', $destino) }}" class="inline-flex items-center bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-4 py-1 rounded transition font-semibold">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5h6M9 7v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6M16 3l-4 4m-1 3l5 5" />
-                                    </svg>
-                                    Editar
-                                </a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5h6M9 7v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6M16 3l-4 4m-1 3l5 5" />
+                                        </svg>
+                                        Editar
+                                    </a>
                                     <form action="{{ route('destinos.destroy', $destino) }}" method="POST" class="inline-block" onsubmit="return confirm('¿Seguro que quieres eliminar este destino?');">
                                         @csrf
                                         @method('DELETE')
