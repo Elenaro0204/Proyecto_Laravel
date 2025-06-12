@@ -97,7 +97,7 @@
         </div>
 
         <div>
-            <label for="foto" class="block text-sm font-semibold text-gray-800 mb-3">Foto (opcional)</label>
+            <label for="foto" class="block text-sm font-semibold text-gray-800 mb-3">Imagen (opcional)</label>
             <input
                 id="foto"
                 name="foto"

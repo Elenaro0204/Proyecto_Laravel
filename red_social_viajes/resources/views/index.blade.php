@@ -5,14 +5,14 @@
     <!-- Bienvenida -->
     <div class="bg-white rounded-xl shadow-lg p-8 mb-10">
         <h1 class="text-4xl font-extrabold mb-4 text-gray-700">
-            ¡Bienvenid@, <span class="text-blue-600">{{ Auth::user()->name }}</span>!
+            ¡Bienvenid@, <span class="text-indigo-600">{{ Auth::user()->name }}</span>!
         </h1>
         <p class="text-gray-700 mb-8 text-lg">
             Explora tus viajes, conecta con otros viajeros y descubre nuevos destinos.
         </p>
         <div class="flex flex-wrap justify-center gap-6 mb-6">
             <a href="{{ route('viajes.create') }}"
-               class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition duration-300">
+               class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition duration-300">
                Crear nuevo viaje
             </a>
 
@@ -22,7 +22,7 @@
             </a>
 
             <a href="{{ route('profile.index') }}"
-               class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition duration-300">
+               class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition duration-300">
                Mi Perfil
             </a>
         </div>
@@ -31,13 +31,13 @@
     <!-- Estadísticas rápidas -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
         <div class="bg-white rounded-lg shadow p-6 text-center">
-            <h2 class="text-3xl font-bold text-blue-600">
+            <h2 class="text-3xl font-bold text-indigo-600">
                 {{ $viajesCount ?? 0 }}
             </h2>
             <p class="text-gray-600 mt-2 font-medium">Viajes creados</p>
         </div>
         <div class="bg-white rounded-lg shadow p-6 text-center">
-            <h2 class="text-3xl font-bold text-blue-600">
+            <h2 class="text-3xl font-bold text-indigo-600">
                 {{ $destinosCount ?? 0 }}
             </h2>
             <p class="text-gray-600 mt-2 font-medium">Destinos posibles</p>

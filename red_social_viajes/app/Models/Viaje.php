@@ -24,7 +24,7 @@ class Viaje extends Model
         'fecha_fin' => 'datetime',
     ];
 
-    // Relaciones, por ejemplo:
+    // Relaciones
     public function user()
     {
         return $this->belongsTo(User::class);
